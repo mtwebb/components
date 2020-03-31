@@ -1,0 +1,46 @@
+{
+  "name": "@boardgamelab/components",
+  "version": "0.0.1",
+  "description": "Definitions of Components used in Boardgame Lab",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --no-cache --coverage --collectCoverageFrom=src/**",
+    "build": "parcel build index.ts",
+    "build:ts": "tsc --declaration",
+    "ts": "tsc --noEmit",
+    "prepack": "npm run build && npm run build:ts",
+    "prettier": "prettier --write src/*.ts"
+  },
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist/index.js",
+    "dist/types"
+  ],
+  "author": "Nicolo John Davis <nicolodavis@gmail.com>",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "@types/jest": "^25.1.3",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,css,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "coveragePathIgnorePatterns": []
+  }
+}
