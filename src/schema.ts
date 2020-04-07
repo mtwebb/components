@@ -26,10 +26,28 @@ export interface Schema {
   [id: string]: SchemaEntry;
 }
 
+export namespace Style {
+  export interface Dimensions {}
+
+  export interface Part {
+    type: "box" | "circle";
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    fill: string;
+    stroke: string;
+  }
+}
+
 export interface SchemaEntry {
   type: Component;
   data?: KeyValue<any>;
   opts?: KeyValue<any>;
+  style?: {
+    dimensions: Style.Dimensions;
+    parts?: Style.Part[];
+  };
 }
 
 export interface KeyValue<T> {
