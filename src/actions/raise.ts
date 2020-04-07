@@ -14,28 +14,26 @@
  *  limitations under the License.
  */
 
-// The State object contains the specific game state at
-// a point in time.  Unlike the Schema, it does change
-// throughout the game.  The values in the State object
-// may override their equivalents in the Schema.
+import { State, StateEntry } from "../state";
 
-type Order = number;
+export interface Action {
+  kind: "raise";
+  id: string;
+}
 
-export interface State {
-  highest?: Order;
-  objects: {
-    [id: string]: StateEntry;
+export function Apply(state: State, action: Action): State {
+  const objects = state.objects;
+  const stateEntry: StateEntry = objects[action.id] || {};
+  const order = (state.highest || 0) + 1;
+  return {
+    ...state,
+    highest: order,
+    objects: {
+      ...objects,
+      [action.id]: {
+        ...stateEntry,
+        order
+      }
+    }
   };
-}
-
-export interface StateEntry {
-  data?: KeyValue<any>;
-  opts?: KeyValue<any>;
-  parent?: string | null;
-  children?: Array<string>;
-  order?: Order;
-}
-
-export interface KeyValue<T> {
-  [key: string]: T;
 }
