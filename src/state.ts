@@ -30,6 +30,7 @@ export interface StateEntry {
   opts?: KeyValue<any>;
   parent?: string | null;
   children?: Array<string>;
+  order?: number;
 }
 
 export interface KeyValue<T> {

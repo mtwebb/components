@@ -6,7 +6,7 @@
     "test": "jest",
     "test:coverage": "jest --no-cache --coverage --collectCoverageFrom=src/**",
     "build": "parcel build index.ts",
-    "build:ts": "tsc --declaration --declarationDir ./dist/types",
+    "build:ts": "tsc --emitDeclarationOnly --declaration --declarationDir ./dist/types",
     "ts": "tsc --noEmit",
     "prepack": "npm run build && npm run build:ts",
     "prettier": "prettier --write src/*.ts"
