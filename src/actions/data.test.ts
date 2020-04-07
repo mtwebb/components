@@ -19,7 +19,9 @@ import { State } from "../state";
 
 describe("data", () => {
   const state: State = {
-    card: {}
+    objects: {
+      card: {}
+    }
   };
 
   const action: Action = {
@@ -31,7 +33,7 @@ describe("data", () => {
 
   test("updates data attribute", () => {
     const newState = ApplyActionsToState(state, [action]);
-    expect(newState).toEqual({
+    expect(newState.objects).toEqual({
       card: { data: { key: "value" } }
     });
   });

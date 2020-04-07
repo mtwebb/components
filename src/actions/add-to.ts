@@ -23,29 +23,30 @@ export interface Action {
 }
 
 export function Apply(state: State, action: Action): State {
-  const objState = state[action.id] || {};
+  let objects = state.objects;
+  const objState = objects[action.id] || {};
   const oldParent = objState.parent;
 
   if (oldParent) {
-    let entry = state[oldParent];
+    let entry = objects[oldParent] || {};
     entry = {
       ...entry,
       children: entry.children?.filter(i => i != action.id)
     };
-    state = { ...state, [oldParent]: entry };
+    objects = { ...objects, [oldParent]: entry };
   }
 
-  let newParent = state[action.parent] || {};
+  let newParent = objects[action.parent] || {};
   newParent = {
     ...newParent,
     children: [...(newParent.children || []), action.id]
   };
 
-  state = {
-    ...state,
+  objects = {
+    ...objects,
     [action.parent]: newParent,
     [action.id]: { ...objState, parent: action.parent }
   };
 
-  return state;
+  return { ...state, objects };
 }

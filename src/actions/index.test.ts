@@ -18,5 +18,5 @@ import { Action, ApplyActionsToState } from ".";
 
 test("invalid action", () => {
   const action = {} as Action;
-  expect(() => ApplyActionsToState({}, [action])).toThrow();
+  expect(() => ApplyActionsToState({ objects: {} }, [action])).toThrow();
 });

@@ -19,9 +19,11 @@ import { State } from "../state";
 
 describe("add-to", () => {
   let state: State = {
-    deck1: { children: [] },
-    deck2: { children: [] },
-    card: {}
+    objects: {
+      deck1: { children: [] },
+      deck2: { children: [] },
+      card: {}
+    }
   };
 
   test("move card to deck1", () => {
@@ -32,7 +34,7 @@ describe("add-to", () => {
     };
 
     state = ApplyActionsToState(state, [action]);
-    expect(state).toEqual({
+    expect(state.objects).toEqual({
       deck1: { children: ["card"] },
       deck2: { children: [] },
       card: { parent: "deck1" }
@@ -47,7 +49,7 @@ describe("add-to", () => {
     };
 
     state = ApplyActionsToState(state, [action]);
-    expect(state).toEqual({
+    expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: ["card"] },
       card: { parent: "deck2" }

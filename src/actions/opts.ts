@@ -24,12 +24,16 @@ export interface Action {
 }
 
 export function Apply(state: State, action: Action): State {
-  const stateEntry: StateEntry = state[action.id] || {};
+  const objects = state.objects;
+  const stateEntry: StateEntry = objects[action.id] || {};
   return {
     ...state,
-    [action.id]: {
-      ...stateEntry,
-      opts: { ...(stateEntry.opts || {}), [action.key]: action.value }
+    objects: {
+      ...objects,
+      [action.id]: {
+        ...stateEntry,
+        opts: { ...(stateEntry.opts || {}), [action.key]: action.value }
+      }
     }
   };
 }

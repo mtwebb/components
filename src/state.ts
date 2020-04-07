@@ -20,7 +20,9 @@
 // may override their equivalents in the Schema.
 
 export interface State {
-  [id: string]: StateEntry;
+  objects: {
+    [id: string]: StateEntry;
+  };
 }
 
 export interface StateEntry {
