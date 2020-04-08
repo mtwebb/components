@@ -23,6 +23,10 @@ import { Component } from "./types";
 // in order to generate the graphics on the frontend.
 
 export interface Schema {
+  templates?: {
+    [id: string]: Template;
+  };
+
   objects: {
     [id: string]: SchemaEntry;
   };
@@ -42,14 +46,20 @@ export namespace Style {
   }
 }
 
-export interface SchemaEntry {
-  type: Component;
-  data?: KeyValue<any>;
-  opts?: KeyValue<any>;
+export interface Template {
   style?: {
     dimensions: Style.Dimensions;
     parts?: Style.Part[];
   };
+
+  placeholders?: {};
+}
+
+export interface SchemaEntry {
+  type: Component;
+  data?: KeyValue<any>;
+  opts?: KeyValue<any>;
+  templateID?: string;
 }
 
 export interface KeyValue<T> {
