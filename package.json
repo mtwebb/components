@@ -6,9 +6,8 @@
     "test": "jest",
     "test:coverage": "jest --no-cache --coverage --collectCoverageFrom=src/**",
     "build": "microbundle index.ts",
-    "build:ts": "tsc --emitDeclarationOnly --declaration --declarationDir ./dist/types",
     "ts": "tsc --noEmit",
-    "prepack": "npm run build && npm run build:ts",
+    "prepack": "npm run build",
     "prettier": "prettier --write src/*.ts"
   },
   "main": "dist/index.js",
