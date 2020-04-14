@@ -14,20 +14,8 @@
  *  limitations under the License.
  */
 
-import { Component } from "./src/types";
-import { Schema, Style, SchemaEntry } from "./src/schema";
-import { State, StateEntry } from "./src/state";
-import { Action, ApplyActionsToState } from "./src/actions";
-import { MergeOpts } from "./src/utils/merge";
-
-export {
-  Action,
-  Style,
-  ApplyActionsToState,
-  MergeOpts,
-  Schema,
-  SchemaEntry,
-  State,
-  StateEntry,
-  Component
-};
+export { Component } from "./src/types";
+export { Schema, Style, SchemaEntry } from "./src/schema";
+export { State, StateEntry } from "./src/state";
+export { Action, ApplyActionsToState } from "./src/actions";
+export { MergeOpts } from "./src/utils/merge";

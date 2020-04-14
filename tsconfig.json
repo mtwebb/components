@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "es6", "scripthost", "es2017.object"],
     "allowJs": true,
+    "preserveConstEnums": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strict": true
