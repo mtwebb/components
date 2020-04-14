@@ -15,13 +15,14 @@
  */
 
 import { Component } from "./src/types";
-import { Schema, SchemaEntry } from "./src/schema";
+import { Schema, Style, SchemaEntry } from "./src/schema";
 import { State, StateEntry } from "./src/state";
 import { Action, ApplyActionsToState } from "./src/actions";
 import { MergeOpts } from "./src/utils/merge";
 
 export {
   Action,
+  Style,
   ApplyActionsToState,
   MergeOpts,
   Schema,

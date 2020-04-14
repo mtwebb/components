@@ -35,8 +35,11 @@ export interface Schema {
 export namespace Style {
   export interface Dimensions {}
 
+  export type PartID = string;
+
   export interface Part {
     type: "box" | "circle";
+    id: PartID;
     x: number;
     y: number;
     width: number;
@@ -48,8 +51,11 @@ export namespace Style {
 
 export interface Template {
   style?: {
-    dimensions: Style.Dimensions;
-    parts?: Style.Part[];
+    dimensions?: Style.Dimensions;
+    parts?: {
+      [id: string]: Style.Part;
+    };
+    partOrder?: Style.PartID[];
   };
 
   placeholders?: {};
