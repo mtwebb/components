@@ -50,6 +50,8 @@ export namespace Style {
 }
 
 export interface Template {
+  type: Component;
+
   style?: {
     dimensions?: Style.Dimensions;
     parts?: {
@@ -62,10 +64,12 @@ export interface Template {
 }
 
 export interface SchemaEntry {
-  type: Component;
+  templateID: string;
   data?: KeyValue<any>;
   opts?: KeyValue<any>;
-  templateID?: string;
+  template: {
+    placeholders?: {};
+  };
 }
 
 export interface KeyValue<T> {
