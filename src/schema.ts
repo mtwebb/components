@@ -23,7 +23,7 @@ import { Component } from "./types";
 // in order to generate the graphics on the frontend.
 
 export interface Schema {
-  templates?: {
+  templates: {
     [id: string]: Template;
   };
 
@@ -33,7 +33,10 @@ export interface Schema {
 }
 
 export namespace Style {
-  export interface Dimensions {}
+  export interface Geometry {
+    width: number;
+    height: number;
+  }
 
   export type PartID = string;
 
@@ -47,19 +50,28 @@ export namespace Style {
     fill: string;
     stroke: string;
   }
+
+  export type Parts = {
+    [id: string]: Style.Part;
+  };
 }
 
 export interface Template {
+  // CARD / SNAP_POINT etc.
   type: Component;
 
-  style?: {
-    dimensions?: Style.Dimensions;
-    parts?: {
-      [id: string]: Style.Part;
-    };
-    partOrder?: Style.PartID[];
-  };
+  // width / height of the component.
+  geometry: Style.Geometry;
 
+  // Any shapes that need to be rendered inside the template.
+  // These are created using the Boardgame Lab editor.
+  parts?: Style.Parts;
+
+  // The order in which these parts have to be rendered.
+  partOrder?: Style.PartID[];
+
+  // Any placeholders that are meant to be filled in by
+  // components that derive from this template.
   placeholders?: {};
 }
 
