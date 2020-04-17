@@ -40,8 +40,8 @@ export namespace Style {
 
   export type PartID = string;
 
-  export interface Part {
-    type: "box" | "circle";
+  interface Box {
+    type: "box";
     id: PartID;
     x: number;
     y: number;
@@ -50,6 +50,30 @@ export namespace Style {
     fill: string;
     stroke: string;
   }
+
+  interface Circle {
+    type: "circle";
+    id: PartID;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    fill: string;
+    stroke: string;
+  }
+
+  interface Text {
+    type: "text";
+    id: PartID;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    fill: string;
+    stroke: string;
+  }
+
+  export type Part = Box | Circle | Text;
 
   export type Parts = {
     [id: string]: Style.Part;
