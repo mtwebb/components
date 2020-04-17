@@ -23,89 +23,121 @@ import { Component } from "./types";
 // in order to generate the graphics on the frontend.
 
 export interface Schema {
+  assets: {
+    [id: string]: Asset.Entry;
+  };
+
   templates: {
-    [id: string]: Template;
+    [id: string]: Template.Entry;
   };
 
   objects: {
-    [id: string]: SchemaEntry;
+    [id: string]: GameObject.Entry;
   };
 }
 
-export namespace Style {
+export namespace Asset {
+  export type ID = string;
+
+  export interface Entry {
+    id: ID;
+    name: string;
+    url: string;
+  }
+}
+
+export namespace Template {
+  export type ID = string;
+
+  export interface Entry {
+    // CARD / SNAP_POINT etc.
+    type: Component;
+
+    // width / height of the component.
+    geometry: Geometry;
+
+    // Any shapes that need to be rendered inside the template.
+    // These are created using the Boardgame Lab editor.
+    parts?: Part.Map;
+
+    // The order in which these parts have to be rendered.
+    partOrder?: Part.ID[];
+
+    // Any placeholders that are meant to be filled in by
+    // components that derive from this template.
+    placeholders?: {};
+  }
+
   export interface Geometry {
     width: number;
     height: number;
   }
 
-  export type PartID = string;
+  export namespace Part {
+    export type ID = string;
 
-  interface Box {
-    type: "box";
-    id: PartID;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    fill: string;
-    stroke: string;
+    interface Box {
+      type: "box";
+      id: ID;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      fill: string;
+      stroke: string;
+    }
+
+    interface Circle {
+      type: "circle";
+      id: ID;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      fill: string;
+      stroke: string;
+    }
+
+    interface Text {
+      type: "text";
+      id: ID;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      color: string;
+      fontSize: number;
+      bold?: boolean;
+      italic?: boolean;
+    }
+
+    interface Image {
+      type: "image";
+      assetID: Asset.ID;
+      id: ID;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    }
+
+    export type Entry = Box | Circle | Text | Image;
+
+    export type Map = {
+      [id: string]: Entry;
+    };
   }
-
-  interface Circle {
-    type: "circle";
-    id: PartID;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    fill: string;
-    stroke: string;
-  }
-
-  interface Text {
-    type: "text";
-    id: PartID;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    fill: string;
-    stroke: string;
-  }
-
-  export type Part = Box | Circle | Text;
-
-  export type Parts = {
-    [id: string]: Style.Part;
-  };
 }
 
-export interface Template {
-  // CARD / SNAP_POINT etc.
-  type: Component;
-
-  // width / height of the component.
-  geometry: Style.Geometry;
-
-  // Any shapes that need to be rendered inside the template.
-  // These are created using the Boardgame Lab editor.
-  parts?: Style.Parts;
-
-  // The order in which these parts have to be rendered.
-  partOrder?: Style.PartID[];
-
-  // Any placeholders that are meant to be filled in by
-  // components that derive from this template.
-  placeholders?: {};
-}
-
-export interface SchemaEntry {
-  templateID: string;
-  data?: KeyValue<any>;
-  opts?: KeyValue<any>;
-  template: {
-    placeholders?: {};
-  };
+export namespace GameObject {
+  export interface Entry {
+    templateID: Template.ID;
+    data?: KeyValue<any>;
+    opts?: KeyValue<any>;
+    template: {
+      placeholders?: {};
+    };
+  }
 }
 
 export interface KeyValue<T> {
