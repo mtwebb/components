@@ -46,6 +46,27 @@ export namespace Asset {
   }
 }
 
+export namespace Placeholder {
+  export type ID = string;
+
+  export interface Definition {
+    id: ID;
+    type: "text" | "image";
+    // A human-readable name for the placeholder.
+    name?: string;
+  }
+
+  interface Text {
+    value: string;
+  }
+
+  interface Image {
+    assetID: Asset.ID;
+  }
+
+  export type Value = Text | Image;
+}
+
 export namespace Template {
   export type ID = string;
 
@@ -65,7 +86,9 @@ export namespace Template {
 
     // Any placeholders that are meant to be filled in by
     // components that derive from this template.
-    placeholders?: {};
+    placeholders?: {
+      [id: string]: Placeholder.Definition;
+    };
   }
 
   export interface Geometry {
@@ -109,11 +132,14 @@ export namespace Template {
       fontSize: number;
       bold?: boolean;
       italic?: boolean;
+      text: string;
+      textPlaceholder?: string;
     }
 
     interface Image {
       type: "image";
       assetID: Asset.ID;
+      assetIDPlaceholder?: string;
       id: ID;
       x: number;
       y: number;
@@ -130,12 +156,15 @@ export namespace Template {
 }
 
 export namespace GameObject {
+  export type ID = string;
+
   export interface Entry {
+    id: ID;
     templateID: Template.ID;
     data?: KeyValue<any>;
     opts?: KeyValue<any>;
-    template: {
-      placeholders?: {};
+    placeholders?: {
+      [id: string]: Placeholder.Value;
     };
   }
 }
