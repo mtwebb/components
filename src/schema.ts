@@ -71,6 +71,8 @@ export namespace Template {
   export type ID = string;
 
   export interface Entry {
+    id: ID;
+
     // CARD / SNAP_POINT etc.
     type: Component;
 
