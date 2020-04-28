@@ -101,8 +101,8 @@ export namespace Template {
   export namespace Part {
     export type ID = string;
 
-    interface Box {
-      type: "box";
+    interface Rect {
+      type: "rect";
       id: ID;
       x: number;
       y: number;
@@ -132,6 +132,7 @@ export namespace Template {
       height: number;
       color: string;
       fontSize: number;
+      fontFamily?: string;
       bold?: boolean;
       italic?: boolean;
       text: string;
@@ -149,7 +150,7 @@ export namespace Template {
       height: number;
     }
 
-    export type Entry = Box | Circle | Text | Image;
+    export type Entry = Rect | Circle | Text | Image;
 
     export type Map = {
       [id: string]: Entry;
