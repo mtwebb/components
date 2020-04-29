@@ -24,12 +24,7 @@ import { Component } from "./types";
 
 export interface Schema {
   assets: {
-    [section: string]: {
-      label: string;
-      assets: {
-        [id: string]: Asset.Entry;
-      };
-    };
+    [id: string]: Asset.Entry;
   };
 
   templates: {
@@ -46,7 +41,7 @@ export namespace Asset {
 
   export interface Entry {
     id: ID;
-    label: string;
+    name: string;
     url: string;
   }
 }
