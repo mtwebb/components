@@ -136,13 +136,13 @@ export namespace Template {
       bold?: boolean;
       italic?: boolean;
       text: string;
-      textPlaceholder?: string;
+      fieldID?: string;
     }
 
     interface Image {
       type: "image";
       assetID: Asset.ID;
-      assetIDPlaceholder?: string;
+      fieldID?: string;
       id: ID;
       x: number;
       y: number;
