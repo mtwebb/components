@@ -14,10 +14,28 @@
  *  limitations under the License.
  */
 
-export const enum Component {
-  CARD,
-  DECK,
-  CARD_ROW,
-  CARD_HOLDER,
-  SNAP_POINT
+import { Component } from "../types";
+import { State, StateEntry } from "../state";
+
+export interface Action {
+  kind: "create";
+  id: string;
+  type: Component;
+}
+
+export function Apply(state: State, action: Action): State {
+  const objects = state.objects;
+  const stateEntry: StateEntry = {};
+  const order = (state.highest || 0) + 1;
+  return {
+    ...state,
+    highest: order,
+    objects: {
+      ...objects,
+      [action.id]: {
+        ...stateEntry,
+        order
+      }
+    }
+  };
 }

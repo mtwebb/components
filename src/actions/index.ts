@@ -19,8 +19,14 @@ import * as AddTo from "./add-to";
 import * as Data from "./data";
 import * as Opts from "./opts";
 import * as Raise from "./raise";
+import * as Create from "./create";
 
-export type Action = AddTo.Action | Data.Action | Opts.Action | Raise.Action;
+export type Action =
+  | AddTo.Action
+  | Create.Action
+  | Data.Action
+  | Opts.Action
+  | Raise.Action;
 
 function assertNever(action: never): never {
   throw new Error(`unexpected action: ${JSON.stringify(action)}`);
@@ -43,6 +49,9 @@ function _ApplyActionToState(state: State, action: Action) {
 
     case "raise":
       return Raise.Apply(state, action);
+
+    case "create":
+      return Create.Apply(state, action);
 
     default:
       return assertNever(action);
