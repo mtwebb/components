@@ -14,6 +14,10 @@
  *  limitations under the License.
  */
 
+// TODO: This was originally created to create ephemeral
+// decks. Investigate if it is truly necessary or if it
+// is sufficient to just mark the bottom card as a deck.
+
 import { Component } from "../types";
 import { State, StateEntry } from "../state";
 

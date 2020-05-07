@@ -16,6 +16,7 @@
 
 import { State } from "../state";
 import * as AddTo from "./add-to";
+import * as Draw from "./draw";
 import * as Data from "./data";
 import * as Opts from "./opts";
 import * as Raise from "./raise";
@@ -23,6 +24,7 @@ import * as Create from "./create";
 
 export type Action =
   | AddTo.Action
+  | Draw.Action
   | Create.Action
   | Data.Action
   | Opts.Action
@@ -40,6 +42,9 @@ function _ApplyActionToState(state: State, action: Action) {
   switch (action.kind) {
     case "add-to":
       return AddTo.Apply(state, action);
+
+    case "draw":
+      return Draw.Apply(state, action);
 
     case "data":
       return Data.Apply(state, action);
