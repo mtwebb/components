@@ -55,4 +55,19 @@ describe("add-to", () => {
       card: { parent: "deck2" }
     });
   });
+
+  test("make card free", () => {
+    const action: Action = {
+      kind: "add-to",
+      id: "card",
+      parent: null
+    };
+
+    state = ApplyActionsToState(state, [action]);
+    expect(state.objects).toEqual({
+      deck1: { children: [] },
+      deck2: { children: [] },
+      card: { parent: null }
+    });
+  });
 });

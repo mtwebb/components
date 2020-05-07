@@ -19,7 +19,7 @@ import { State } from "../state";
 export interface Action {
   kind: "add-to";
   id: string;
-  parent: string;
+  parent: string | null;
 }
 
 export function Apply(state: State, action: Action): State {
@@ -36,15 +36,20 @@ export function Apply(state: State, action: Action): State {
     objects = { ...objects, [oldParent]: entry };
   }
 
-  let newParent = objects[action.parent] || {};
-  newParent = {
-    ...newParent,
-    children: [...(newParent.children || []), action.id]
-  };
+  if (action.parent) {
+    let newParent = objects[action.parent] || {};
+    newParent = {
+      ...newParent,
+      children: [...(newParent.children || []), action.id]
+    };
+    objects = {
+      ...objects,
+      [action.parent]: newParent
+    };
+  }
 
   objects = {
     ...objects,
-    [action.parent]: newParent,
     [action.id]: { ...objState, parent: action.parent }
   };
 
