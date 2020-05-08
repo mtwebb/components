@@ -22,22 +22,22 @@ describe("draw", () => {
     objects: {
       deck1: { children: [] },
       deck2: { children: [] },
-      card: {}
-    }
+      card: {},
+    },
   };
 
   test("move card to deck1", () => {
     const action: Action = {
       kind: "add-to",
       id: "card",
-      parent: "deck1"
+      parent: "deck1",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: ["card"] },
       deck2: { children: [] },
-      card: { parent: "deck1" }
+      card: { parent: "deck1" },
     });
   });
 
@@ -45,28 +45,42 @@ describe("draw", () => {
     const action: Action = {
       kind: "draw",
       id: "deck1",
-      target: "deck2"
+      target: "deck2",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: ["card"] },
-      card: { parent: "deck2" }
+      card: { parent: "deck2" },
     });
   });
 
   test("move card to freedom", () => {
     const action: Action = {
       kind: "draw",
-      id: "deck2"
+      id: "deck2",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: [] },
-      card: { parent: null }
+      card: { parent: null },
+    });
+  });
+
+  test("drawing an empty deck", () => {
+    const action: Action = {
+      kind: "draw",
+      id: "deck2",
+    };
+
+    state = ApplyActionsToState(state, [action]);
+    expect(state.objects).toEqual({
+      deck1: { children: [] },
+      deck2: { children: [] },
+      card: { parent: null },
     });
   });
 });
