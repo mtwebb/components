@@ -32,8 +32,8 @@ export function Apply(state: State, action: Action): State {
       ...objects,
       [action.id]: {
         ...stateEntry,
-        opts: { ...(stateEntry.opts || {}), [action.key]: action.value }
-      }
-    }
+        opts: { ...(stateEntry.opts || {}), [action.key]: action.value },
+      },
+    },
   };
 }
