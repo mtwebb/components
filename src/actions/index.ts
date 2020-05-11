@@ -21,14 +21,16 @@ import * as Data from "./data";
 import * as Opts from "./opts";
 import * as Raise from "./raise";
 import * as Create from "./create";
+import * as Shuffle from "./shuffle";
 
 export type Action =
   | AddTo.Action
-  | Draw.Action
   | Create.Action
   | Data.Action
+  | Draw.Action
   | Opts.Action
-  | Raise.Action;
+  | Raise.Action
+  | Shuffle.Action;
 
 function assertNever(action: never): never {
   throw new Error(`unexpected action: ${JSON.stringify(action)}`);
@@ -43,11 +45,14 @@ function _ApplyActionToState(state: State, action: Action) {
     case "add-to":
       return AddTo.Apply(state, action);
 
-    case "draw":
-      return Draw.Apply(state, action);
+    case "create":
+      return Create.Apply(state, action);
 
     case "data":
       return Data.Apply(state, action);
+
+    case "draw":
+      return Draw.Apply(state, action);
 
     case "opts":
       return Opts.Apply(state, action);
@@ -55,8 +60,8 @@ function _ApplyActionToState(state: State, action: Action) {
     case "raise":
       return Raise.Apply(state, action);
 
-    case "create":
-      return Create.Apply(state, action);
+    case "shuffle":
+      return Shuffle.Apply(state, action);
 
     default:
       return assertNever(action);
