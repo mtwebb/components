@@ -14,17 +14,13 @@
  *  limitations under the License.
  */
 
-// TODO: This was originally created to create ephemeral
-// decks. Investigate if it is truly necessary or if it
-// is sufficient to just mark the bottom card as a deck.
-
-import { Component } from "../types";
+import { Template } from "../schema";
 import { State, StateEntry } from "../state";
 
 export interface Action {
   kind: "create";
   id: string;
-  type: Component;
+  template: Template.Entry;
 }
 
 export function Apply(state: State, action: Action): State {
@@ -38,8 +34,9 @@ export function Apply(state: State, action: Action): State {
       ...objects,
       [action.id]: {
         ...stateEntry,
-        order
-      }
-    }
+        template: action.template,
+        order,
+      },
+    },
   };
 }

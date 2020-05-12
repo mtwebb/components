@@ -22,21 +22,38 @@ describe("create", () => {
   let state: State = {
     objects: {
       card1: {},
-      card2: {}
-    }
+      card2: {},
+    },
   };
 
   test("create a deck", () => {
     const action: Action = {
       kind: "create",
       id: "deck",
-      type: Component.DECK
+      template: {
+        id: "deck",
+        type: Component.DECK,
+        geometry: {
+          width: 10,
+          height: 10,
+        },
+      },
     };
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       card1: {},
       card2: {},
-      deck: { order: 1 }
+      deck: {
+        order: 1,
+        template: {
+          id: "deck",
+          type: Component.DECK,
+          geometry: {
+            width: 10,
+            height: 10,
+          },
+        },
+      },
     });
   });
 });

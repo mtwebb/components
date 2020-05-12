@@ -19,6 +19,8 @@
 // throughout the game.  The values in the State object
 // may override their equivalents in the Schema.
 
+import { Template } from "./schema";
+
 type Order = number;
 
 export interface State {
@@ -34,6 +36,12 @@ export interface StateEntry {
   parent?: string | null;
   children?: Array<string>;
   order?: Order;
+
+  // This is populated for objects that are created
+  // on the fly and don't have an entry in the schema.
+  // For example, decks are created like this when
+  // cards are stacked on top of each other.
+  template?: Template.Entry;
 }
 
 export interface KeyValue<T> {
