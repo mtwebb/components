@@ -46,13 +46,13 @@ export namespace Asset {
   }
 }
 
-export namespace Placeholder {
+export namespace Field {
   export type ID = string;
 
   export interface Definition {
     id: ID;
     type: "text" | "image";
-    // A human-readable name for the placeholder.
+    // A human-readable name for the field.
     name?: string;
   }
 
@@ -86,10 +86,10 @@ export namespace Template {
     // The order in which these parts have to be rendered.
     partOrder?: Part.ID[];
 
-    // Any placeholders that are meant to be filled in by
+    // Any fields that are meant to be filled in by
     // components that derive from this template.
-    placeholders?: {
-      [id: string]: Placeholder.Definition;
+    fields?: {
+      [id: string]: Field.Definition;
     };
   }
 
@@ -166,8 +166,8 @@ export namespace GameObject {
     templateID: Template.ID;
     data?: KeyValue<any>;
     opts?: KeyValue<any>;
-    placeholders?: {
-      [id: string]: Placeholder.Value;
+    fields?: {
+      [id: string]: Field.Value;
     };
   }
 }
