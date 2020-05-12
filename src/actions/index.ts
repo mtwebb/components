@@ -18,6 +18,7 @@ import { State } from "../state";
 import * as AddTo from "./add-to";
 import * as Draw from "./draw";
 import * as Data from "./data";
+import * as Delete from "./delete";
 import * as Opts from "./opts";
 import * as Raise from "./raise";
 import * as Create from "./create";
@@ -27,6 +28,7 @@ export type Action =
   | AddTo.Action
   | Create.Action
   | Data.Action
+  | Delete.Action
   | Draw.Action
   | Opts.Action
   | Raise.Action
@@ -50,6 +52,9 @@ function _ApplyActionToState(state: State, action: Action) {
 
     case "data":
       return Data.Apply(state, action);
+
+    case "delete":
+      return Delete.Apply(state, action);
 
     case "draw":
       return Draw.Apply(state, action);
