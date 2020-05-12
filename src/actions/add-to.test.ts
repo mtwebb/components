@@ -14,6 +14,7 @@
  *  limitations under the License.
  */
 
+import { Component } from "../types";
 import { Action, ApplyActionsToState } from ".";
 import { State } from "../state";
 
@@ -22,22 +23,22 @@ describe("add-to", () => {
     objects: {
       deck1: { children: [] },
       deck2: { children: [] },
-      card: {}
-    }
+      card: {},
+    },
   };
 
   test("move card to deck1", () => {
     const action: Action = {
       kind: "add-to",
       id: "card",
-      parent: "deck1"
+      parent: "deck1",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: ["card"] },
       deck2: { children: [] },
-      card: { parent: "deck1" }
+      card: { parent: "deck1" },
     });
   });
 
@@ -45,14 +46,14 @@ describe("add-to", () => {
     const action: Action = {
       kind: "add-to",
       id: "card",
-      parent: "deck2"
+      parent: "deck2",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: ["card"] },
-      card: { parent: "deck2" }
+      card: { parent: "deck2" },
     });
   });
 
@@ -60,14 +61,59 @@ describe("add-to", () => {
     const action: Action = {
       kind: "add-to",
       id: "card",
-      parent: null
+      parent: null,
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: [] },
-      card: { parent: null }
+      card: { parent: null },
+    });
+  });
+
+  describe("ephemeral containers", () => {
+    // Certain objects like Decks can be created
+    // on the fly when two cards are stacked on top
+    // of each other. We delete these ephemeral objects
+    // once their last child exits.
+    test("delete ephemeral parent", () => {
+      const state: State = {
+        objects: {
+          deck: {
+            opts: {
+              x: 10,
+              y: 10,
+            },
+            children: ["card1", "card2"],
+            template: {
+              id: "",
+              type: Component.DECK,
+              geometry: { width: 0, height: 0 },
+            },
+          },
+          card1: { parent: "deck" },
+          card2: { parent: "deck" },
+        },
+      };
+
+      const action: Action = {
+        kind: "add-to",
+        id: "card1",
+        parent: null,
+      };
+
+      const s = ApplyActionsToState(state, [action]);
+      expect(s.objects).toEqual({
+        card1: { parent: null },
+        card2: {
+          parent: null,
+          opts: {
+            x: 10,
+            y: 10,
+          },
+        },
+      });
     });
   });
 });

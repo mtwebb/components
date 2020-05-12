@@ -31,26 +31,56 @@ export function Apply(state: State, action: Action): State {
     let entry = objects[oldParent] || {};
     entry = {
       ...entry,
-      children: entry.children?.filter(i => i != action.id)
+      children: entry.children?.filter((i) => i != action.id),
     };
     objects = { ...objects, [oldParent]: entry };
+
+    if (entry.template) {
+      const numChildren = entry.children?.length || 0;
+
+      // Remove last child from ephemeral containers.
+      // Let it go free instead.
+      if (numChildren === 1) {
+        const lastChild = entry.children![0];
+
+        objects = {
+          ...objects,
+          [lastChild]: {
+            ...state.objects[lastChild],
+            opts: {
+              x: entry.opts?.x,
+              y: entry.opts?.y,
+            },
+            parent: null,
+          },
+        };
+      }
+
+      // Delete old parent if it was ephemeral and doesn't
+      // need to exist anymore, i.e. it is either empty or
+      // has exactly one child.
+      if (numChildren < 2) {
+        const { [oldParent]: _, ...rest } = objects;
+        objects = rest;
+      }
+    }
   }
 
   if (action.parent) {
     let newParent = objects[action.parent] || {};
     newParent = {
       ...newParent,
-      children: [...(newParent.children || []), action.id]
+      children: [...(newParent.children || []), action.id],
     };
     objects = {
       ...objects,
-      [action.parent]: newParent
+      [action.parent]: newParent,
     };
   }
 
   objects = {
     ...objects,
-    [action.id]: { ...objState, parent: action.parent }
+    [action.id]: { ...objState, parent: action.parent },
   };
 
   return { ...state, objects };
