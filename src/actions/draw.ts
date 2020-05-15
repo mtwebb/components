@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import { State } from "../state";
+import { State, Container } from "../state";
 
 export interface Action {
   kind: "draw";
@@ -29,7 +29,7 @@ export interface Action {
 
 export function Apply(state: State, action: Action): State {
   let objects = state.objects;
-  const objState = objects[action.id];
+  const objState = objects[action.id] as Container;
 
   // Object is not a container or doesn't have any children.
   if (!objState?.children?.length) {
@@ -42,16 +42,16 @@ export function Apply(state: State, action: Action): State {
   // Remove the item from the list of children.
   const newObjState = {
     ...objState,
-    children: objState.children?.filter(i => i != topItemID)
+    children: objState.children?.filter((i) => i != topItemID),
   };
   objects = { ...objects, [action.id]: newObjState };
 
   // Add the item to a new container (if necessary).
   if (action.target) {
-    let newParent = objects[action.target] || {};
+    let newParent: Container = objects[action.target] || {};
     newParent = {
       ...newParent,
-      children: [...(newParent.children || []), topItemID]
+      children: [...(newParent.children || []), topItemID],
     };
     objects = { ...objects, [action.target]: newParent };
   }
@@ -59,7 +59,7 @@ export function Apply(state: State, action: Action): State {
   // Update the item's parent.
   objects = {
     ...objects,
-    [topItemID]: { ...objects[topItemID], parent: action.target || null }
+    [topItemID]: { ...objects[topItemID], parent: action.target || null },
   };
 
   return { ...state, objects };

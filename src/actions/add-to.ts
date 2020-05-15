@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import { State } from "../state";
+import { State, Container } from "../state";
 
 export interface Action {
   kind: "add-to";
@@ -28,7 +28,7 @@ export function Apply(state: State, action: Action): State {
   const oldParent = objState.parent;
 
   if (oldParent) {
-    let entry = objects[oldParent] || {};
+    let entry: Container = objects[oldParent] || {};
     entry = {
       ...entry,
       children: entry.children?.filter((i) => i != action.id),
@@ -47,10 +47,8 @@ export function Apply(state: State, action: Action): State {
           ...objects,
           [lastChild]: {
             ...state.objects[lastChild],
-            opts: {
-              x: entry.opts?.x,
-              y: entry.opts?.y,
-            },
+            x: entry.x,
+            y: entry.y,
             parent: null,
           },
         };
@@ -67,7 +65,7 @@ export function Apply(state: State, action: Action): State {
   }
 
   if (action.parent) {
-    let newParent = objects[action.parent] || {};
+    let newParent: Container = objects[action.parent] || {};
     newParent = {
       ...newParent,
       children: [...(newParent.children || []), action.id],

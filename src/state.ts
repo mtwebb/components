@@ -30,11 +30,21 @@ export interface State {
   };
 }
 
-export interface StateEntry {
+/**
+ * Common properties.
+ */
+export interface Common {
+  // Position.
+  x?: number;
+  y?: number;
+
+  // Game-logic specific data.
   data?: KeyValue<any>;
-  opts?: KeyValue<any>;
+
+  // Set if the object is in a container.
   parent?: string | null;
-  children?: Array<string>;
+
+  // The rendering order.
   order?: Order;
 
   // This is populated for objects that are created
@@ -43,6 +53,20 @@ export interface StateEntry {
   // cards are stacked on top of each other.
   template?: Template.Entry;
 }
+
+export type Card = Common & {
+  faceUp?: boolean;
+  rotation?: number;
+};
+
+export type Container = Common & {
+  // ID's of the children in this container.
+  children?: Array<string>;
+  // A unique ID that's updated every time the deck is shuffled.
+  shuffleID?: number;
+};
+
+export type StateEntry = Card | Container;
 
 export interface KeyValue<T> {
   [key: string]: T;

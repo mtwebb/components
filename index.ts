@@ -18,4 +18,3 @@ export { Component } from "./src/types";
 export { Schema, Asset, Field, Template, GameObject } from "./src/schema";
 export { State, StateEntry } from "./src/state";
 export { Action, ApplyActionsToState } from "./src/actions";
-export { MergeOpts } from "./src/utils/merge";

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import { State, StateEntry } from "../state";
+import { State, Container } from "../state";
 
 export interface Action {
   kind: "shuffle";
@@ -23,8 +23,8 @@ export interface Action {
 
 export function Apply(state: State, action: Action): State {
   const objects = state.objects;
-  const stateEntry: StateEntry = objects[action.id] || {};
-  let { children } = stateEntry;
+  const deck: Container = objects[action.id] || {};
+  let { children } = deck;
 
   if (children) {
     for (let i = children.length - 1; i > 0; i--) {
@@ -35,18 +35,15 @@ export function Apply(state: State, action: Action): State {
     }
   }
 
-  const shuffleID = stateEntry.opts?.shuffleID || 0;
+  const shuffleID = deck.shuffleID || 0;
 
   return {
     ...state,
     objects: {
       ...objects,
       [action.id]: {
-        ...stateEntry,
-        opts: {
-          ...(stateEntry.opts || {}),
-          shuffleID: shuffleID + 1,
-        },
+        ...deck,
+        shuffleID: shuffleID + 1,
         children: [...(children || [])],
       },
     },

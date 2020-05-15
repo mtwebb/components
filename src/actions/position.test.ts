@@ -14,26 +14,27 @@
  *  limitations under the License.
  */
 
-import { State, StateEntry } from "../state";
+import { Action, ApplyActionsToState } from ".";
+import { State } from "../state";
 
-export interface Action {
-  kind: "opts";
-  id: string;
-  key: string;
-  value: any;
-}
-
-export function Apply(state: State, action: Action): State {
-  const objects = state.objects;
-  const stateEntry: StateEntry = objects[action.id] || {};
-  return {
-    ...state,
+describe("position", () => {
+  const state: State = {
     objects: {
-      ...objects,
-      [action.id]: {
-        ...stateEntry,
-        opts: { ...(stateEntry.opts || {}), [action.key]: action.value },
-      },
+      card: {},
     },
   };
-}
+
+  const action: Action = {
+    kind: "position",
+    id: "card",
+    x: 10,
+    y: 10,
+  };
+
+  test("updates position", () => {
+    const newState = ApplyActionsToState(state, [action]);
+    expect(newState.objects).toEqual({
+      card: { x: 10, y: 10 },
+    });
+  });
+});

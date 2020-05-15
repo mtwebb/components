@@ -73,7 +73,7 @@ describe("add-to", () => {
   });
 
   describe("ephemeral containers", () => {
-    // Certain objects like Decks can be created
+    // Certain objects like Containers can be created
     // on the fly when two cards are stacked on top
     // of each other. We delete these ephemeral objects
     // once their last child exits.
@@ -81,10 +81,8 @@ describe("add-to", () => {
       const state: State = {
         objects: {
           deck: {
-            opts: {
-              x: 10,
-              y: 10,
-            },
+            x: 10,
+            y: 10,
             children: ["card1", "card2"],
             template: {
               id: "",
@@ -108,10 +106,8 @@ describe("add-to", () => {
         card1: { parent: null },
         card2: {
           parent: null,
-          opts: {
-            x: 10,
-            y: 10,
-          },
+          x: 10,
+          y: 10,
         },
       });
     });

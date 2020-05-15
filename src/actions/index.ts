@@ -19,7 +19,7 @@ import * as AddTo from "./add-to";
 import * as Draw from "./draw";
 import * as Data from "./data";
 import * as Delete from "./delete";
-import * as Opts from "./opts";
+import * as Position from "./position";
 import * as Raise from "./raise";
 import * as Create from "./create";
 import * as Shuffle from "./shuffle";
@@ -30,7 +30,7 @@ export type Action =
   | Data.Action
   | Delete.Action
   | Draw.Action
-  | Opts.Action
+  | Position.Action
   | Raise.Action
   | Shuffle.Action;
 
@@ -59,8 +59,8 @@ function _ApplyActionToState(state: State, action: Action) {
     case "draw":
       return Draw.Apply(state, action);
 
-    case "opts":
-      return Opts.Apply(state, action);
+    case "position":
+      return Position.Apply(state, action);
 
     case "raise":
       return Raise.Apply(state, action);
