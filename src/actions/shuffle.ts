@@ -35,12 +35,18 @@ export function Apply(state: State, action: Action): State {
     }
   }
 
+  const shuffleID = stateEntry.opts?.shuffleID || 0;
+
   return {
     ...state,
     objects: {
       ...objects,
       [action.id]: {
         ...stateEntry,
+        opts: {
+          ...(stateEntry.opts || {}),
+          shuffleID: shuffleID + 1,
+        },
         children: [...(children || [])],
       },
     },
