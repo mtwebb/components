@@ -37,7 +37,7 @@ describe("draw", () => {
     expect(state.objects).toEqual({
       deck1: { children: ["card"] },
       deck2: { children: [] },
-      card: { parent: "deck1" },
+      card: { x: 0, y: 0, parent: "deck1" },
     });
   });
 
@@ -52,7 +52,7 @@ describe("draw", () => {
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: ["card"] },
-      card: { parent: "deck2" },
+      card: { x: 0, y: 0, parent: "deck2" },
     });
   });
 
@@ -66,7 +66,7 @@ describe("draw", () => {
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: [] },
-      card: { parent: null },
+      card: { x: 0, y: 0, parent: null },
     });
   });
 
@@ -80,7 +80,7 @@ describe("draw", () => {
     expect(state.objects).toEqual({
       deck1: { children: [] },
       deck2: { children: [] },
-      card: { parent: null },
+      card: { x: 0, y: 0, parent: null },
     });
   });
 });

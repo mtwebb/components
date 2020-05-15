@@ -19,61 +19,69 @@ import { Action, ApplyActionsToState } from ".";
 import { State } from "../state";
 
 describe("add-to", () => {
-  let state: State = {
-    objects: {
-      deck1: { children: [] },
-      deck2: { children: [] },
-      card: {},
-    },
-  };
-
-  test("move card to deck1", () => {
-    const action: Action = {
-      kind: "add-to",
-      id: "card",
-      parent: "deck1",
+  describe("basic", () => {
+    let state: State = {
+      objects: {
+        deck1: { children: [] },
+        deck2: { children: [] },
+        card: {},
+      },
     };
 
-    state = ApplyActionsToState(state, [action]);
-    expect(state.objects).toEqual({
-      deck1: { children: ["card"] },
-      deck2: { children: [] },
-      card: { parent: "deck1" },
+    test("move card to deck1", () => {
+      const action: Action = {
+        kind: "add-to",
+        id: "card",
+        parent: "deck1",
+      };
+
+      state = ApplyActionsToState(state, [action]);
+      expect(state.objects).toEqual({
+        deck1: { children: ["card"] },
+        deck2: { children: [] },
+        card: { x: 0, y: 0, parent: "deck1" },
+      });
     });
-  });
 
-  test("move card to deck2", () => {
-    const action: Action = {
-      kind: "add-to",
-      id: "card",
-      parent: "deck2",
-    };
+    test("move card to deck2", () => {
+      const action: Action = {
+        kind: "add-to",
+        id: "card",
+        parent: "deck2",
+      };
 
-    state = ApplyActionsToState(state, [action]);
-    expect(state.objects).toEqual({
-      deck1: { children: [] },
-      deck2: { children: ["card"] },
-      card: { parent: "deck2" },
+      state = ApplyActionsToState(state, [action]);
+      expect(state.objects).toEqual({
+        deck1: { children: [] },
+        deck2: { children: ["card"] },
+        card: { x: 0, y: 0, parent: "deck2" },
+      });
     });
-  });
 
-  test("make card free", () => {
-    const action: Action = {
-      kind: "add-to",
-      id: "card",
-      parent: null,
-    };
+    test("make card free", () => {
+      const action: Action = {
+        kind: "add-to",
+        id: "card",
+        parent: null,
+      };
 
-    state = ApplyActionsToState(state, [action]);
-    expect(state.objects).toEqual({
-      deck1: { children: [] },
-      deck2: { children: [] },
-      card: { parent: null },
+      state = ApplyActionsToState(state, [action]);
+      expect(state.objects).toEqual({
+        deck1: { children: [] },
+        deck2: { children: [] },
+        card: { x: 0, y: 0, parent: null },
+      });
     });
   });
 
   describe("ephemeral containers", () => {
-    // Certain objects like Containers can be created
+    const template = {
+      id: "",
+      type: Component.DECK,
+      geometry: { width: 0, height: 0 },
+    };
+
+    // Certain objects like Decks can be created
     // on the fly when two cards are stacked on top
     // of each other. We delete these ephemeral objects
     // once their last child exits.
@@ -84,11 +92,7 @@ describe("add-to", () => {
             x: 10,
             y: 10,
             children: ["card1", "card2"],
-            template: {
-              id: "",
-              type: Component.DECK,
-              geometry: { width: 0, height: 0 },
-            },
+            template,
           },
           card1: { parent: "deck" },
           card2: { parent: "deck" },
@@ -104,10 +108,38 @@ describe("add-to", () => {
       const s = ApplyActionsToState(state, [action]);
       expect(s.objects).toEqual({
         card1: { parent: null },
-        card2: {
-          parent: null,
-          x: 10,
-          y: 10,
+        card2: { parent: null, x: 10, y: 10 },
+      });
+    });
+
+    test("add deck to another deck", () => {
+      const state: State = {
+        objects: {
+          card1: { parent: "deck1" },
+          card2: { parent: "deck1" },
+          deck1: {
+            children: ["card1", "card2"],
+            template,
+          },
+          deck2: {
+            children: [],
+            template,
+          },
+        },
+      };
+
+      const action: Action = {
+        kind: "add-to",
+        id: "deck1",
+        parent: "deck2",
+      };
+
+      const s = ApplyActionsToState(state, [action]);
+      expect(s.objects).toMatchObject({
+        card1: { parent: "deck2" },
+        card2: { parent: "deck2" },
+        deck2: {
+          children: ["card1", "card2"],
         },
       });
     });

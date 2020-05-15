@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import { State, Container } from "../state";
+import { State, Container, StateEntry } from "../state";
 
 export interface Action {
   kind: "add-to";
@@ -27,14 +27,40 @@ export function Apply(state: State, action: Action): State {
   const objState = objects[action.id] || {};
   const oldParent = objState.parent;
 
+  // Remove object from existing container.
   if (oldParent) {
-    let entry: Container = objects[oldParent] || {};
-    entry = {
-      ...entry,
-      children: entry.children?.filter((i) => i != action.id),
-    };
-    objects = { ...objects, [oldParent]: entry };
+    objects = RemoveChild(objects, oldParent, action.id);
+  }
 
+  // Add object to new container.
+  if (action.parent) {
+    // If the subject is a container, flatten its children
+    // inside the new container.
+    const container = objState as Container;
+    if (container.children) {
+      container.children.forEach((childID) => {
+        objects = RemoveChild(objects, action.id, childID);
+        objects = AddChild(objects, action.parent as string, childID);
+      });
+    } else {
+      objects = AddChild(objects, action.parent as string, action.id);
+    }
+  }
+
+  let candidates = [action.id];
+  if (oldParent) {
+    candidates.push(oldParent);
+  }
+  objects = PurgeEphemeralDecks(objects, candidates);
+
+  return { ...state, objects };
+}
+
+type Objects = { [id: string]: StateEntry };
+
+function PurgeEphemeralDecks(objects: Objects, candidates: string[]): Objects {
+  candidates.forEach((id) => {
+    const entry: Container = objects[id];
     if (entry.template) {
       const numChildren = entry.children?.length || 0;
 
@@ -46,7 +72,7 @@ export function Apply(state: State, action: Action): State {
         objects = {
           ...objects,
           [lastChild]: {
-            ...state.objects[lastChild],
+            ...objects[lastChild],
             x: entry.x,
             y: entry.y,
             parent: null,
@@ -58,28 +84,61 @@ export function Apply(state: State, action: Action): State {
       // need to exist anymore, i.e. it is either empty or
       // has exactly one child.
       if (numChildren < 2) {
-        const { [oldParent]: _, ...rest } = objects;
-        objects = rest;
+        objects = DeleteObject(objects, id);
       }
     }
-  }
+  });
 
-  if (action.parent) {
-    let newParent: Container = objects[action.parent] || {};
-    newParent = {
-      ...newParent,
-      children: [...(newParent.children || []), action.id],
-    };
-    objects = {
-      ...objects,
-      [action.parent]: newParent,
-    };
-  }
+  return objects;
+}
+
+function RemoveChild(
+  objects: Objects,
+  containerID: string,
+  childID: string
+): Objects {
+  let container: Container = objects[containerID] || {};
+  let child = objects[childID] || {};
 
   objects = {
     ...objects,
-    [action.id]: { ...objState, parent: action.parent },
+
+    [containerID]: {
+      ...container,
+      children: container.children?.filter((i) => i != childID),
+    },
+
+    [childID]: {
+      ...child,
+      parent: null,
+    },
+  };
+  return objects;
+}
+
+function AddChild(
+  objects: Objects,
+  containerID: string,
+  childID: string
+): Objects {
+  let container: Container = objects[containerID] || {};
+  let child = objects[childID] || {};
+
+  objects = {
+    ...objects,
+
+    [containerID]: {
+      ...container,
+      children: [...(container.children || []), childID],
+    },
+
+    [childID]: { ...child, x: 0, y: 0, parent: containerID },
   };
 
-  return { ...state, objects };
+  return objects;
+}
+
+function DeleteObject(objects: Objects, id: string): Objects {
+  const { [id]: _, ...rest } = objects;
+  return rest;
 }
