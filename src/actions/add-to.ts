@@ -14,6 +14,7 @@
  *  limitations under the License.
  */
 
+import { Component } from "../types";
 import { State, Container, StateEntry } from "../state";
 
 export interface Action {
@@ -61,7 +62,7 @@ type Objects = { [id: string]: StateEntry };
 function PurgeEphemeralDecks(objects: Objects, candidates: string[]): Objects {
   candidates.forEach((id) => {
     const entry: Container = objects[id];
-    if (entry.template) {
+    if (entry.template && entry.template.type === Component.DECK) {
       const numChildren = entry.children?.length || 0;
 
       // Remove last child from ephemeral containers.

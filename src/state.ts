@@ -25,9 +25,18 @@ type Order = number;
 
 export interface State {
   highest?: Order;
+
   objects: {
     [id: string]: StateEntry;
   };
+
+  players?: {
+    [id: string]: PlayerInfo;
+  };
+}
+
+export interface PlayerInfo {
+  hand: {};
 }
 
 /**

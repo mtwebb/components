@@ -20,4 +20,5 @@ export const enum Component {
   CARD_ROW,
   CARD_HOLDER,
   SNAP_POINT,
+  HAND,
 }
