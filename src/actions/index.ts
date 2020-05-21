@@ -19,6 +19,7 @@ import * as AddTo from "./add-to";
 import * as Draw from "./draw";
 import * as Data from "./data";
 import * as Delete from "./delete";
+import * as Noop from "./noop";
 import * as Position from "./position";
 import * as Raise from "./raise";
 import * as Create from "./create";
@@ -30,6 +31,7 @@ export type Action =
   | Data.Action
   | Delete.Action
   | Draw.Action
+  | Noop.Action
   | Position.Action
   | Raise.Action
   | Shuffle.Action;
@@ -38,8 +40,17 @@ function assertNever(action: never): never {
   throw new Error(`unexpected action: ${JSON.stringify(action)}`);
 }
 
-export function ApplyActionsToState(state: State, actions: Array<Action>) {
-  return actions.reduce(_ApplyActionToState, state);
+export function ApplyActionsToState(
+  state: State,
+  actions: Array<Action>,
+  remote?: boolean
+) {
+  let newState = actions.reduce(_ApplyActionToState, state);
+  newState.latestActions = actions;
+  if (remote) {
+    newState.remote = true;
+  }
+  return newState;
 }
 
 function _ApplyActionToState(state: State, action: Action) {
@@ -58,6 +69,9 @@ function _ApplyActionToState(state: State, action: Action) {
 
     case "draw":
       return Draw.Apply(state, action);
+
+    case "noop":
+      return Noop.Apply(state, action);
 
     case "position":
       return Position.Apply(state, action);

@@ -20,3 +20,26 @@ test("invalid action", () => {
   const action = {} as Action;
   expect(() => ApplyActionsToState({ objects: {} }, [action])).toThrow();
 });
+
+describe("remote", () => {
+  const initial = { objects: {} };
+
+  test("false", () => {
+    const action: Action = { kind: "noop" };
+    const state = ApplyActionsToState(initial, [action]);
+    expect(state).toEqual({
+      ...initial,
+      latestActions: [action],
+    });
+  });
+
+  test("true", () => {
+    const action: Action = { kind: "noop" };
+    const state = ApplyActionsToState(initial, [action], true);
+    expect(state).toEqual({
+      ...initial,
+      latestActions: [action],
+      remote: true,
+    });
+  });
+});

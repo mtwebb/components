@@ -19,13 +19,12 @@
 // throughout the game.  The values in the State object
 // may override their equivalents in the Schema.
 
+import { Action } from "./actions";
 import { Template } from "./schema";
 
 type Order = number;
 
 export interface State {
-  highest?: Order;
-
   objects: {
     [id: string]: StateEntry;
   };
@@ -33,6 +32,15 @@ export interface State {
   players?: {
     [id: string]: PlayerInfo;
   };
+
+  highest?: Order;
+
+  // A list of the actions applied at the most recent state update.
+  latestActions?: Action[];
+
+  // True if the latest state update was the result of actions
+  // from a remote player.
+  remote?: boolean;
 }
 
 export interface PlayerInfo {
