@@ -15,10 +15,12 @@
  */
 
 import { State, Container } from "../state";
+import seedrandom from "seedrandom";
 
 export interface Action {
   kind: "shuffle";
   id: string;
+  seed: string;
 }
 
 export function Apply(state: State, action: Action): State {
@@ -26,9 +28,11 @@ export function Apply(state: State, action: Action): State {
   const deck: Container = objects[action.id] || {};
   let { children } = deck;
 
+  const rng = seedrandom(action.seed);
+
   if (children) {
     for (let i = children.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
+      let j = Math.floor(rng() * (i + 1));
       let temp = children[i];
       children[i] = children[j];
       children[j] = temp;
