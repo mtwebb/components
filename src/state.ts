@@ -44,7 +44,12 @@ export interface State {
 }
 
 export interface PlayerInfo {
-  hand: {};
+  id: string;
+
+  // The object that represents the player hand.
+  handID: string;
+
+  nickname?: string;
 }
 
 /**

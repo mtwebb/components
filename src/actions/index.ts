@@ -24,6 +24,7 @@ import * as Position from "./position";
 import * as Raise from "./raise";
 import * as Create from "./create";
 import * as Shuffle from "./shuffle";
+import * as Player from "./player";
 
 export type Action =
   | AddTo.Action
@@ -34,11 +35,8 @@ export type Action =
   | Noop.Action
   | Position.Action
   | Raise.Action
-  | Shuffle.Action;
-
-function assertNever(action: never): never {
-  throw new Error(`unexpected action: ${JSON.stringify(action)}`);
-}
+  | Shuffle.Action
+  | Player.Action;
 
 export function ApplyActionsToState(
   state: State,
@@ -82,7 +80,15 @@ function _ApplyActionToState(state: State, action: Action) {
     case "shuffle":
       return Shuffle.Apply(state, action);
 
+    case "player/create":
+    case "player/remove":
+      return Player.Apply(state, action);
+
     default:
       return assertNever(action);
   }
+}
+
+function assertNever(action: never): never {
+  throw new Error(`unexpected action: ${JSON.stringify(action)}`);
 }
