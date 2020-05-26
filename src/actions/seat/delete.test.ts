@@ -14,17 +14,26 @@
  *  limitations under the License.
  */
 
+import { Action, ApplyActionsToState } from "..";
 import { State } from "../../state";
 
-export interface Action {
-  kind: "player/remove";
-  id: string;
-}
-
-export function Apply(state: State, action: Action): State {
-  const { [action.id]: _, ...rest } = state.players || {};
-  return {
-    ...state,
-    players: rest,
+test("delete", () => {
+  const seat = {
+    id: "0",
+    handID: "hand",
   };
-}
+
+  let state: State = {
+    objects: {},
+    seats: {
+      [seat.id]: seat,
+    },
+  };
+
+  const action: Action = {
+    kind: "seat/delete",
+    id: "0",
+  };
+  state = ApplyActionsToState(state, [action]);
+  expect(state.seats).toEqual({});
+});

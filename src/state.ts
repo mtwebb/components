@@ -29,8 +29,8 @@ export interface State {
     [id: string]: StateEntry;
   };
 
-  players?: {
-    [id: string]: PlayerInfo;
+  seats?: {
+    [id: string]: SeatInfo;
   };
 
   highest?: Order;
@@ -43,7 +43,7 @@ export interface State {
   remote?: boolean;
 }
 
-export interface PlayerInfo {
+export interface SeatInfo {
   id: string;
 
   // The object that represents the player hand.

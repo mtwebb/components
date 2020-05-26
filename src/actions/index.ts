@@ -24,7 +24,7 @@ import * as Position from "./position";
 import * as Raise from "./raise";
 import * as Create from "./create";
 import * as Shuffle from "./shuffle";
-import * as Player from "./player";
+import * as Seat from "./seat";
 
 export type Action =
   | AddTo.Action
@@ -36,7 +36,7 @@ export type Action =
   | Position.Action
   | Raise.Action
   | Shuffle.Action
-  | Player.Action;
+  | Seat.Action;
 
 export function ApplyActionsToState(
   state: State,
@@ -80,9 +80,9 @@ function _ApplyActionToState(state: State, action: Action) {
     case "shuffle":
       return Shuffle.Apply(state, action);
 
-    case "player/create":
-    case "player/remove":
-      return Player.Apply(state, action);
+    case "seat/create":
+    case "seat/delete":
+      return Seat.Apply(state, action);
 
     default:
       return assertNever(action);

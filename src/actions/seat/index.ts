@@ -14,35 +14,23 @@
  *  limitations under the License.
  */
 
-import { Component } from "../../types";
-import { State, PlayerInfo } from "../../state";
+import { State } from "../../state";
+import * as Create from "./create";
+import * as Delete from "./delete";
 
-export interface Action {
-  kind: "player/create";
-  player: PlayerInfo;
+export type Action = Create.Action | Delete.Action;
+
+export function Apply(state: State, action: Action) {
+  switch (action.kind) {
+    case "seat/create":
+      return Create.Apply(state, action);
+    case "seat/delete":
+      return Delete.Apply(state, action);
+    default:
+      return assertNever(action);
+  }
 }
 
-export function Apply(state: State, action: Action): State {
-  const hand = {
-    template: {
-      id: action.player.handID,
-      type: Component.HAND,
-      geometry: { width: 0, height: 0 },
-    },
-    children: [],
-  };
-
-  return {
-    ...state,
-
-    objects: {
-      ...state.objects,
-      [action.player.handID]: hand,
-    },
-
-    players: {
-      ...state.players,
-      [action.player.id]: action.player,
-    },
-  };
+function assertNever(action: never): never {
+  throw new Error(`unexpected action: ${JSON.stringify(action)}`);
 }

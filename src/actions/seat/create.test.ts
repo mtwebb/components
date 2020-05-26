@@ -22,18 +22,18 @@ test("create", () => {
     objects: {},
   };
 
-  const player = {
+  const seat = {
     id: "0",
     handID: "hand",
   };
 
   const action: Action = {
-    kind: "player/create",
-    player,
+    kind: "seat/create",
+    seat,
   };
   state = ApplyActionsToState(state, [action]);
-  expect(state.players).toEqual({
-    [player.id]: player,
+  expect(state.seats).toEqual({
+    [seat.id]: seat,
   });
   expect(Object.keys(state.objects)).toContain("hand");
 });
