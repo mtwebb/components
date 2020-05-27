@@ -37,7 +37,7 @@ export function Apply(state: State, action: Action): State {
 
     objects: {
       ...state.objects,
-      [action.seat.handID]: hand,
+      [action.seat.handID]: state.objects[action.seat.handID] || hand,
     },
 
     seats: {

@@ -29,6 +29,8 @@ export interface State {
     [id: string]: StateEntry;
   };
 
+  // Used in multiplayer games to identify the different seats.
+  // Each seat has a private Player Hand.
   seats?: {
     [id: string]: SeatInfo;
   };
@@ -48,8 +50,6 @@ export interface SeatInfo {
 
   // The object that represents the player hand.
   handID: string;
-
-  nickname?: string;
 }
 
 /**
