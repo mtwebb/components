@@ -14,24 +14,24 @@
  *  limitations under the License.
  */
 
-import { State, Card } from "../state";
+import { State, Card } from "../../state";
 
 export interface Action {
-  kind: "flip";
+  kind: "card/flip";
   id: string;
 }
 
 export function Apply(state: State, action: Action): State {
   const objects = state.objects;
   const stateEntry: Card = objects[action.id] || {};
-  const faceUp = stateEntry.faceUp ?? true;
+  const faceDown = stateEntry.faceDown ?? false;
   return {
     ...state,
     objects: {
       ...objects,
       [action.id]: {
         ...stateEntry,
-        faceUp: !faceUp,
+        faceDown: !faceDown,
       },
     },
   };

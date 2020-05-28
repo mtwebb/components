@@ -16,7 +16,7 @@
 
 import { State } from "../state";
 import * as AddTo from "./add-to";
-import * as Flip from "./flip";
+import * as Card from "./card";
 import * as Data from "./data";
 import * as Delete from "./delete";
 import * as Noop from "./noop";
@@ -28,10 +28,10 @@ import * as Seat from "./seat";
 
 export type Action =
   | AddTo.Action
+  | Card.Action
   | Create.Action
   | Data.Action
   | Delete.Action
-  | Flip.Action
   | Noop.Action
   | Position.Action
   | Raise.Action
@@ -56,6 +56,10 @@ function _ApplyActionToState(state: State, action: Action) {
     case "add-to":
       return AddTo.Apply(state, action);
 
+    case "card/flip":
+    case "card/rotate":
+      return Card.Apply(state, action);
+
     case "create":
       return Create.Apply(state, action);
 
@@ -64,9 +68,6 @@ function _ApplyActionToState(state: State, action: Action) {
 
     case "delete":
       return Delete.Apply(state, action);
-
-    case "flip":
-      return Flip.Apply(state, action);
 
     case "noop":
       return Noop.Apply(state, action);

@@ -77,7 +77,7 @@ export interface Common {
 }
 
 export type Card = Common & {
-  faceUp?: boolean;
+  faceDown?: boolean;
   rotation?: number;
 };
 

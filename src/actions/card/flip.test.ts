@@ -14,8 +14,8 @@
  *  limitations under the License.
  */
 
-import { Action, ApplyActionsToState } from ".";
-import { State } from "../state";
+import { Action, ApplyActionsToState } from "..";
+import { State } from "../../state";
 
 describe("flip", () => {
   let state: State = {
@@ -26,25 +26,25 @@ describe("flip", () => {
 
   test("flip once", () => {
     const action: Action = {
-      kind: "flip",
+      kind: "card/flip",
       id: "card",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
-      card: { faceUp: false },
+      card: { faceDown: true },
     });
   });
 
   test("flip again", () => {
     const action: Action = {
-      kind: "flip",
+      kind: "card/flip",
       id: "card",
     };
 
     state = ApplyActionsToState(state, [action]);
     expect(state.objects).toEqual({
-      card: { faceUp: true },
+      card: { faceDown: false },
     });
   });
 });
