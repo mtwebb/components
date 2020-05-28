@@ -14,13 +14,25 @@
  *  limitations under the License.
  */
 
-import { State } from "../../state";
+import { State, Card } from "../../state";
 
 export interface Action {
   kind: "card/rotate";
   id: string;
 }
 
-export function Apply(state: State, _: Action): State {
-  return state;
+export function Apply(state: State, action: Action): State {
+  const objects = state.objects;
+  const card: Card = objects[action.id] || {};
+  const rotation = card.rotation ?? 0;
+  return {
+    ...state,
+    objects: {
+      ...objects,
+      [action.id]: {
+        ...card,
+        rotation: (rotation + 45) % 360,
+      },
+    },
+  };
 }
