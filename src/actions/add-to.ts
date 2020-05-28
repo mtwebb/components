@@ -133,7 +133,7 @@ function AddChild(
       children: [...(container.children || []), childID],
     },
 
-    [childID]: { ...child, x: 0, y: 0, parent: containerID },
+    [childID]: { ...child, x: 0, y: 0, rotation: 0, parent: containerID },
   };
 
   return objects;

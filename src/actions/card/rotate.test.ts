@@ -47,16 +47,4 @@ describe("rotate", () => {
       card: { rotation: 90 },
     });
   });
-
-  test("bring back to 0", () => {
-    const action: Action = {
-      kind: "card/rotate",
-      id: "card",
-    };
-
-    state = ApplyActionsToState(state, new Array(6).fill(action));
-    expect(state.objects).toEqual({
-      card: { rotation: 0 },
-    });
-  });
 });
