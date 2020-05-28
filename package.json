@@ -1,6 +1,6 @@
 {
   "name": "@boardgamelab/components",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Definitions of Components used in Boardgame Lab",
   "scripts": {
     "test": "jest",
