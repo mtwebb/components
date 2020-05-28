@@ -14,11 +14,10 @@
  *  limitations under the License.
  */
 
-import { Action, ApplyActionsToState } from ".";
-import { State, Container } from "../state";
-import { Component } from "../types";
+import { Action, ApplyActionsToState } from "..";
+import { State } from "../../state";
 
-describe("shuffle", () => {
+describe("flip", () => {
   let state: State = {
     objects: {
       deck: {
@@ -32,21 +31,22 @@ describe("shuffle", () => {
     },
   };
 
-  test("shuffle", () => {
+  test("flip", () => {
     const action: Action = {
-      kind: "shuffle",
+      kind: "deck/flip",
       id: "deck",
-      seed: "seed",
     };
-    state = ApplyActionsToState(state, [action]);
 
-    const deck: Container = state.objects["deck"];
-    expect(deck.children).toEqual([
-      "card5",
-      "card2",
-      "card1",
-      "card4",
-      "card3",
-    ]);
+    state = ApplyActionsToState(state, [action]);
+    expect(state.objects).toEqual({
+      deck: {
+        children: ["card5", "card4", "card3", "card2", "card1"],
+      },
+      card1: { parent: "deck", faceDown: true },
+      card2: { parent: "deck", faceDown: true },
+      card3: { parent: "deck", faceDown: true },
+      card4: { parent: "deck", faceDown: true },
+      card5: { parent: "deck", faceDown: true },
+    });
   });
 });

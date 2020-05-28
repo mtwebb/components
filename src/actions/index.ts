@@ -18,12 +18,12 @@ import { State } from "../state";
 import * as AddTo from "./add-to";
 import * as Card from "./card";
 import * as Data from "./data";
+import * as Deck from "./deck";
 import * as Delete from "./delete";
 import * as Noop from "./noop";
 import * as Position from "./position";
 import * as Raise from "./raise";
 import * as Create from "./create";
-import * as Shuffle from "./shuffle";
 import * as Seat from "./seat";
 
 export type Action =
@@ -31,11 +31,11 @@ export type Action =
   | Card.Action
   | Create.Action
   | Data.Action
+  | Deck.Action
   | Delete.Action
   | Noop.Action
   | Position.Action
   | Raise.Action
-  | Shuffle.Action
   | Seat.Action;
 
 export function ApplyActionsToState(
@@ -78,8 +78,9 @@ function _ApplyActionToState(state: State, action: Action) {
     case "raise":
       return Raise.Apply(state, action);
 
-    case "shuffle":
-      return Shuffle.Apply(state, action);
+    case "deck/flip":
+    case "deck/shuffle":
+      return Deck.Apply(state, action);
 
     case "seat/create":
     case "seat/delete":

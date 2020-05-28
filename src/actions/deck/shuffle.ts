@@ -14,11 +14,11 @@
  *  limitations under the License.
  */
 
-import { State, Container } from "../state";
+import { State, Container } from "../../state";
 import seedrandom from "seedrandom";
 
 export interface Action {
-  kind: "shuffle";
+  kind: "deck/shuffle";
   id: string;
   seed: string;
 }
