@@ -16,7 +16,7 @@
 
 import { State } from "../state";
 import * as AddTo from "./add-to";
-import * as Draw from "./draw";
+import * as Flip from "./flip";
 import * as Data from "./data";
 import * as Delete from "./delete";
 import * as Noop from "./noop";
@@ -31,7 +31,7 @@ export type Action =
   | Create.Action
   | Data.Action
   | Delete.Action
-  | Draw.Action
+  | Flip.Action
   | Noop.Action
   | Position.Action
   | Raise.Action
@@ -65,8 +65,8 @@ function _ApplyActionToState(state: State, action: Action) {
     case "delete":
       return Delete.Apply(state, action);
 
-    case "draw":
-      return Draw.Apply(state, action);
+    case "flip":
+      return Flip.Apply(state, action);
 
     case "noop":
       return Noop.Apply(state, action);
