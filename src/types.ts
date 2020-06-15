@@ -18,7 +18,7 @@ export const enum Component {
   CARD,
   DECK,
   CARD_ROW,
-  CARD_HOLDER,
+  ANCHOR,
   SNAP_POINT,
   HAND,
 }
