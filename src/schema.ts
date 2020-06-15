@@ -34,6 +34,8 @@ export interface Schema {
   objects: {
     [id: string]: GameObject.Entry;
   };
+
+  version: number;
 }
 
 export namespace Asset {
