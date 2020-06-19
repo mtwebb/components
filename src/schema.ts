@@ -81,6 +81,9 @@ export namespace Template {
     // width / height of the component.
     geometry: Geometry;
 
+    // A map of custom behaviors defined for this template.
+    behaviors?: any;
+
     // Any shapes that need to be rendered inside the template.
     // These are created using the Boardgame Lab editor.
     parts?: Part.Map;
