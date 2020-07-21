@@ -111,6 +111,7 @@ export namespace Template {
       id: ID;
       x: number;
       y: number;
+      rotation: number;
       width: number;
       height: number;
       fill: string;
@@ -122,6 +123,7 @@ export namespace Template {
       id: ID;
       x: number;
       y: number;
+      rotation: number;
       width: number;
       height: number;
       fill: string;
@@ -133,6 +135,7 @@ export namespace Template {
       id: ID;
       x: number;
       y: number;
+      rotation: number;
       width: number;
       height: number;
       color: string;
@@ -151,6 +154,7 @@ export namespace Template {
       id: ID;
       x: number;
       y: number;
+      rotation: number;
       width: number;
       height: number;
     }
