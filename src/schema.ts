@@ -91,6 +91,12 @@ export namespace Template {
     // The order in which these parts have to be rendered.
     partOrder?: Part.ID[];
 
+    // The back side of the object.
+    back?: {
+      parts: Part.Map;
+      partOrder: Part.ID[];
+    };
+
     // Any fields that are meant to be filled in by
     // components that derive from this template.
     fields?: {
