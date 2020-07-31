@@ -72,6 +72,11 @@ export namespace Field {
 export namespace Template {
   export type ID = string;
 
+  export interface Side {
+    parts?: Part.Map;
+    partOrder?: Part.ID[];
+  }
+
   export interface Entry {
     id: ID;
 
@@ -84,18 +89,11 @@ export namespace Template {
     // A map of custom behaviors defined for this template.
     behaviors?: any;
 
-    // Any shapes that need to be rendered inside the template.
-    // These are created using the Boardgame Lab editor.
-    parts?: Part.Map;
-
-    // The order in which these parts have to be rendered.
-    partOrder?: Part.ID[];
+    // The front side of the object.
+    front?: Side;
 
     // The back side of the object.
-    back?: {
-      parts: Part.Map;
-      partOrder: Part.ID[];
-    };
+    back?: Side;
 
     // Any fields that are meant to be filled in by
     // components that derive from this template.
