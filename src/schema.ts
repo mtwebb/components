@@ -35,6 +35,8 @@ export interface Schema {
     [id: string]: GameObject.Entry;
   };
 
+  game: any;
+
   version: number;
 }
 
