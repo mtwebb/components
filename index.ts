@@ -17,3 +17,4 @@
 export { Component } from "./src/types";
 export { Schema, Asset, Field, Template, GameObject } from "./src/schema";
 export { State, Card, Container, StateEntry, SeatInfo } from "./src/state";
+export { Action } from "./src/actions";
