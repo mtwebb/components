@@ -35,6 +35,8 @@ export interface State {
     [id: string]: SeatInfo;
   };
 
+  game: any;
+
   highest?: Order;
 
   // A list of the actions applied at the most recent state update.
