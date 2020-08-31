@@ -36,6 +36,7 @@ export interface State {
   };
 
   game: any;
+  ctx: any;
 
   highest?: Order;
 
