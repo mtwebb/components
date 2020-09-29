@@ -102,6 +102,10 @@ export namespace Template {
     fields?: {
       [id: string]: Field.Definition;
     };
+
+    properties?: {
+      [id: string]: Field.Definition;
+    };
   }
 
   export interface Geometry {
