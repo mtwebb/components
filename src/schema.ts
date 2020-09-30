@@ -154,13 +154,13 @@ export namespace Template {
       bold?: boolean;
       italic?: boolean;
       text: string;
-      fieldID?: string;
+      propertyID?: string;
     }
 
     interface Image {
       type: "image";
       assetID: Asset.ID;
-      fieldID?: string;
+      propertyID?: string;
       id: ID;
       x: number;
       y: number;
