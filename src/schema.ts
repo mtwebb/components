@@ -75,6 +75,10 @@ export namespace Template {
   export type ID = string;
 
   export interface Side {
+    layers?: Layer[];
+  }
+
+  export interface Layer {
     parts?: Part.Map;
     partOrder?: Part.ID[];
   }
