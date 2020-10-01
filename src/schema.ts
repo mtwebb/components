@@ -88,22 +88,20 @@ export namespace Template {
     // width / height of the component.
     geometry: Geometry;
 
-    // A map of custom behaviors defined for this template.
-    behaviors?: any;
-
     // The front side of the object.
     front?: Side;
 
     // The back side of the object.
     back?: Side;
 
+    trait?: {
+      properties?: { [id: string]: any };
+      behaviors?: { [id: string]: any };
+    };
+
     // Any fields that are meant to be filled in by
     // components that derive from this template.
     fields?: {
-      [id: string]: Field.Definition;
-    };
-
-    properties?: {
       [id: string]: Field.Definition;
     };
   }
