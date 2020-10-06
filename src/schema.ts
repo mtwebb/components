@@ -32,7 +32,7 @@ export interface Schema {
   };
 
   objects: {
-    [id: string]: GameObject.Entry;
+    [id: string]: Instance.Entry;
   };
 
   game: any;
@@ -56,8 +56,8 @@ export namespace Field {
   export interface Definition {
     id: ID;
     type: "text" | "image";
-    // A human-readable name for the field.
     name?: string;
+    value?: Value;
   }
 
   interface Text {
@@ -179,15 +179,13 @@ export namespace Template {
   }
 }
 
-export namespace GameObject {
+export namespace Instance {
   export type ID = string;
 
   export interface Entry {
     id: ID;
     templateID: Template.ID;
-    data?: KeyValue<any>;
-    opts?: KeyValue<any>;
-    fields?: {
+    overrides?: {
       [id: string]: Field.Value;
     };
   }
