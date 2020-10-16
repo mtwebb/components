@@ -98,11 +98,7 @@ export namespace Template {
         // width / height of the component.
         geometry: Geometry;
 
-        // The front side of the object.
-        front?: Side;
-
-        // The back side of the object.
-        back?: Side;
+        faces: Side[];
       };
     };
   }
