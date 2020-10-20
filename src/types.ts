@@ -15,10 +15,9 @@
  */
 
 export const enum Component {
+  TRAIT,
+  HAND,
   CARD,
   DECK,
-  CARD_ROW,
   ANCHOR,
-  SNAP_POINT,
-  HAND,
 }
