@@ -27,9 +27,9 @@ export interface Schema {
     [id: string]: Asset.Entry;
   };
 
-  templates: {
-    [id: string]: Template.Entry;
-  };
+  traits: Template.Entries;
+
+  templates: Template.Entries;
 
   objects: {
     [id: string]: Instance.Entry;
@@ -83,23 +83,27 @@ export namespace Template {
     partOrder?: Part.ID[];
   }
 
+  export type Entries = {
+    [id: string]: Entry;
+  };
+
   export interface Entry {
     id: ID;
 
     // CARD / SNAP_POINT etc.
     type: Component;
 
-    trait: {
-      properties?: { [id: string]: any };
+    deps: string[];
 
-      behaviors?: { [id: string]: any };
+    properties: { [id: string]: any };
 
-      layout: {
-        // width / height of the component.
-        geometry: Geometry;
+    behaviors: { [id: string]: any };
 
-        faces: Side[];
-      };
+    layout: {
+      // width / height of the component.
+      geometry: Geometry;
+
+      faces: Side[];
     };
   }
 
