@@ -81,6 +81,14 @@ export namespace Template {
   export interface Layer {
     parts?: Part.Map;
     partOrder?: Part.ID[];
+
+    isVisible?: object;
+
+    isLocked?: boolean;
+
+    traitLayout?: {
+      traitID: string;
+    };
   }
 
   export type Entries = {
