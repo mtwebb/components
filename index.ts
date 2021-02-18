@@ -15,6 +15,6 @@
  */
 
 export { Component } from "./src/types";
-export { Schema, Asset, Field, Template, Instance } from "./src/schema";
-export { State, Card, Container, StateEntry, SeatInfo } from "./src/state";
-export { Action } from "./src/actions";
+export type { Schema, Asset, Field, Template, Instance } from "./src/schema";
+export type { State, Card, Container, StateEntry, SeatInfo } from "./src/state";
+export type { Action } from "./src/actions";

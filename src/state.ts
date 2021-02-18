@@ -19,8 +19,8 @@
 // throughout the game.  The values in the State object
 // may override their equivalents in the Schema.
 
-import { Action } from "./actions";
-import { Template } from "./schema";
+import type { Action } from "./actions";
+import type { Template } from "./schema";
 
 type Order = number;
 

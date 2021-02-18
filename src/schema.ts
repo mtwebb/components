@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-import { Component } from "./types";
+import type { Component } from "./types";
 
 // The Schema object contains the specifications of various
 // objects in a particular game.  It does not change in
