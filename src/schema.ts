@@ -31,6 +31,8 @@ export interface Schema {
 
   templates: Template.Entries;
 
+  automation: any;
+
   objects: {
     [id: string]: Instance.Entry;
   };
