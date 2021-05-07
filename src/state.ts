@@ -46,6 +46,8 @@ export interface State {
   // True if the latest state update was the result of actions
   // from a remote player.
   remote?: boolean;
+
+  automation: any;
 }
 
 export interface SeatInfo {
