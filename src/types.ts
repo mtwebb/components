@@ -19,5 +19,5 @@ export const enum Component {
   HAND,
   CARD,
   DECK,
-  ANCHOR,
+  BOARD,
 }
