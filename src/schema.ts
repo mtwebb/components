@@ -29,11 +29,11 @@ export interface Schema {
 
   traits: Template.Entries;
 
-  templates: Template.Entries;
+  components: Template.Entries;
 
   automation: any;
 
-  objects: {
+  instances: {
     [id: string]: Instance.Entry;
   };
 
