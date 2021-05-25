@@ -79,6 +79,8 @@ export interface Common {
   // For example, decks are created like this when
   // cards are stacked on top of each other.
   template?: Template.Entry;
+
+  instance?: string;
 }
 
 export type Card = Common & {
