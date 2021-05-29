@@ -94,6 +94,7 @@ export type Container = Common & {
   // A unique ID that's updated every time the deck is shuffled.
   shuffleID?: number;
   isSnap?: boolean;
+  kind: any;
 };
 
 export type StateEntry = Card | Container;
