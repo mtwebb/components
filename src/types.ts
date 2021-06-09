@@ -16,8 +16,7 @@
 
 export const enum Component {
   TRAIT,
-  HAND,
+  TILE,
   CARD,
-  DECK,
   BOARD,
 }
