@@ -125,8 +125,7 @@ export namespace Template {
   export namespace Part {
     export type ID = string;
 
-    interface Rect {
-      type: "rect";
+    interface Common {
       id: ID;
       x: number;
       y: number;
@@ -137,26 +136,25 @@ export namespace Template {
       stroke: string;
     }
 
+    interface Rect {
+      type: "shape";
+      shape: "rect";
+      borderRadius?: number;
+    }
+
     interface Circle {
-      type: "circle";
-      id: ID;
-      x: number;
-      y: number;
-      rotation: number;
-      width: number;
-      height: number;
-      fill: string;
-      stroke: string;
+      type: "shape";
+      shape: "circle";
+    }
+
+    interface Hex {
+      type: "shape";
+      shape: "hex";
     }
 
     interface Text {
       type: "text";
-      id: ID;
-      x: number;
-      y: number;
-      rotation: number;
-      width: number;
-      height: number;
+      shape: "rect";
       color: string;
       fontSize: number;
       fontFamily?: string;
@@ -168,17 +166,14 @@ export namespace Template {
 
     interface Image {
       type: "image";
+      shape: "rect";
       assetID: Asset.ID;
       propertyID?: string;
-      id: ID;
-      x: number;
-      y: number;
-      rotation: number;
-      width: number;
-      height: number;
     }
 
-    export type Entry = Rect | Circle | Text | Image;
+    export type Shape = Rect | Circle | Hex;
+
+    export type Entry = Common & (Shape | Text | Image);
 
     export type Map = {
       [id: string]: Entry;
