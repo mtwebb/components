@@ -15,7 +15,6 @@
  */
 
 export const enum Component {
-  TRAIT,
   TILE,
   CARD,
   BOARD,
