@@ -37,7 +37,7 @@ export interface Schema {
     [id: string]: Instance.Entry;
   };
 
-  game: any;
+  game?: any;
 
   version: number;
 }

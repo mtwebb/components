@@ -35,7 +35,7 @@ export interface State {
     [id: string]: SeatInfo;
   };
 
-  game: any;
+  game?: any;
   ctx: any;
 
   highest?: Order;
