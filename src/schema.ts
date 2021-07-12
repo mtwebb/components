@@ -187,7 +187,7 @@ export namespace Instance {
   export interface Entry {
     id: ID;
     componentID: Template.ID;
-    overrides?: {
+    propertyOverrides?: {
       [id: string]: Field.Value;
     };
   }
