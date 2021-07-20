@@ -117,21 +117,16 @@ export namespace Template {
     };
   }
 
-  export interface Geometry {
-    width: number;
-    height: number;
-  }
-
   export namespace Part {
     export type ID = string;
 
     interface Common {
       id: ID;
-      x: number;
-      y: number;
-      rotation: number;
-      width: number;
-      height: number;
+      x: Linkable<number>;
+      y: Linkable<number>;
+      rotation: Linkable<number>;
+      width: Linkable<number>;
+      height: Linkable<number>;
       fill: string;
       stroke: string;
     }
@@ -139,7 +134,7 @@ export namespace Template {
     interface Rect {
       type: "shape";
       shape: "rect";
-      borderRadius?: number;
+      borderRadius?: Linkable<number>;
     }
 
     interface Circle {
@@ -193,6 +188,16 @@ export namespace Instance {
   }
 }
 
+export interface Linkable<T> {
+  value: T;
+  propertyID?: string;
+}
+
 export interface KeyValue<T> {
   [key: string]: T;
+}
+
+export interface Geometry {
+  width: Linkable<number>;
+  height: Linkable<number>;
 }

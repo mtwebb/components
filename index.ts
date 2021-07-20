@@ -15,6 +15,13 @@
  */
 
 export { Component } from "./src/types";
-export type { Schema, Asset, Field, Template, Instance } from "./src/schema";
+export type {
+  Schema,
+  Asset,
+  Field,
+  Template,
+  Instance,
+  Geometry,
+} from "./src/schema";
 export type { State, Card, Container, StateEntry, SeatInfo } from "./src/state";
 export type { Action } from "./src/actions";
