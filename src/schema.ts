@@ -129,6 +129,11 @@ export namespace Template {
       height: Linkable<number>;
       fill: string;
       stroke: string;
+      snap?: any;
+      clickable?: any;
+      grid?: {
+        square?: SquareGrid;
+      };
     }
 
     interface Rect {
@@ -169,6 +174,13 @@ export namespace Template {
     export type Shape = Rect | Circle | Hex;
 
     export type Entry = Common & (Shape | Text | Image);
+
+    interface SquareGrid {
+      rows: Linkable<number>;
+      cols: Linkable<number>;
+      sx: Linkable<number>;
+      sy: Linkable<number>;
+    }
 
     export type Map = {
       [id: string]: Entry;
