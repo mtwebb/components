@@ -37,6 +37,8 @@ export interface Schema {
     [id: string]: Instance.Entry;
   };
 
+  roles?: any;
+
   game?: any;
 
   version: number;
